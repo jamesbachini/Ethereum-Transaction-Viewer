@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "dependencies": {
+    "alchemy-sdk": "^2.2.0",
+    "ethers": "^5.7.2"
+  },
+  "name": "ethereum-transaction-viewer",
+  "version": "1.0.0",
+  "description": "A script to view ethereum transaction histories",
+  "main": "view.js",
+  "type": "module",
+  "dependencies": {
+    "alchemy-sdk": "^2.2.0",
+    "ethers": "^5.7.2"
+    },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
