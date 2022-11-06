@@ -8,7 +8,6 @@ const settings = {
 const alchemy = new Alchemy(settings);
 
 let address = process.argv[2];
-
 const lookup = async () => {
 	const fromTransactions = await alchemy.core.getAssetTransfers({
 		fromBlock: "0x0",
@@ -30,9 +29,16 @@ const lookup = async () => {
 		cleaned.push(t);
 	});
 	cleaned.sort((a,b) => a.blockNum - b.blockNum);
-	cleaned.forEach((t) => {
-		console.log(`${t.category},${t.asset},${t.value},${t.from},${t.to},https://goerli.etherscan.io/tx/${t.hash}`);
-	});
+	console.log(`Date,Time,Type,Asset,Value,From,To,Transaction`);
+	for (let i = 0; i < cleaned.length; i++) {
+		await new Promise(r => setTimeout(r, 100)); // slow down to avoid rate limiting?
+		const t = cleaned[i];
+		//console.log(t)
+		const block = await alchemy.core.getBlock(t.blockNum);
+		const date = new Date(block.timestamp * 1000);
+		t.time = date.toLocaleString().toString().replace(' ','')
+		console.log(`${t.time},${t.category},${t.asset},${t.value},${t.from},${t.to},https://goerli.etherscan.io/tx/${t.hash}`);
+	}
 }
 
 lookup();
